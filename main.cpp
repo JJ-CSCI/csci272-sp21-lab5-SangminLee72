@@ -3,13 +3,76 @@
 //------------------------------
 #include "catch.hpp"
 //------------------------------
-
+#include <iostream>
+using namespace std;
 // Write the assignment code here
+class Real {
+public:
+  Real() {};
 
+  explicit Real(double numer) {
+    realNumber_ = numer;
+  }
+
+  double GetReal() {
+    return realNumber_;
+  }
+
+  virtual Real operator*(const double &rhs) const {
+    Real temp(realNumber_ * rhs);
+    return temp;
+  }
+
+protected:
+  double realNumber_;
+
+};
+
+class Complex: public Real {
+public:
+  Complex() {}
+  explicit Complex(double realNumber, double imaginaryNumber) {
+    realNumber_ = realNumber;
+    imaginaryNumber_ = imaginaryNumber;
+  }
+
+  double GetImaginary() {
+    return imaginaryNumber_;
+  }
+
+  Complex operator*(const double &rhs) {
+    Complex temp(realNumber_ * rhs, imaginaryNumber_ * rhs);
+    return temp;
+  }
+
+protected:
+  double imaginaryNumber_;
+};
+
+class Surreal: public Complex {
+public:
+  explicit Surreal(double realNumber, double imaginaryNumber, double surreal) {
+    realNumber_ = realNumber;
+    imaginaryNumber_ = imaginaryNumber;
+    surreal_ = surreal;
+  }
+
+  double GetSurreal() {
+    return surreal_;
+  }
+
+  Surreal operator*(const double &rhs) {
+    Surreal temp(realNumber_ * rhs, imaginaryNumber_ * rhs, surreal_ * rhs);
+    return temp;
+  }
+protected:
+  double surreal_;
+};
 
 //------------------------------
 //   DO NOT MODIFY TEST CASES
 //------------------------------
+
 TEST_CASE( "Assignment" ) {
     SECTION( "c1" ) {
         Real n{10.0};
